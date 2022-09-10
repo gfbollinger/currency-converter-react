@@ -14,7 +14,7 @@ var requestOptions = {
 };
 
 function App() {
-  const [currencyA, setCurrencyA] = useState({ label: "USD (US Dollar)", value: "USD" }); // maybe set initial as { label: "USD", value: "USD" }
+  const [currencyA, setCurrencyA] = useState({ label: "USD (US Dollar)", value: "USD" });
   const [currencyB, setCurrencyB] = useState({ label: "EUR (Euro)", value: "EUR" });
   const [amountA, setAmountA] = useState("");
   const [amountB, setAmountB] = useState("");

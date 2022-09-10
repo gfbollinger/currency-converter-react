@@ -1,5 +1,3 @@
-/* data from https://www.npmjs.com/package/currencies.json */
-
 export const currenciesInfo = [
   {
     AlphabeticCode: "AFN",
