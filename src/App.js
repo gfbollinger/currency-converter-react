@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import CurrencyInput from "./components/CurrencyInput";
+import DATA_SAMPLE from "./data/data_sample";
 
 var myHeaders = new Headers();
 myHeaders.append("apikey", process.env.REACT_APP_FIXER_IO_APIKEY);
@@ -12,8 +13,8 @@ var requestOptions = {
 };
 
 function App() {
-  const [currencyA, setCurrencyA] = useState("USD");
-  const [currencyB, setCurrencyB] = useState("EUR");
+  const [currencyA, setCurrencyA] = useState({ label: "USD", value: "USD" }); // maybe set initial as { label: "USD", value: "USD" }
+  const [currencyB, setCurrencyB] = useState({ label: "EUR", value: "EUR" });
   const [amountA, setAmountA] = useState("");
   const [amountB, setAmountB] = useState("");
   const [currencies, setCurrencies] = useState([]);
@@ -43,12 +44,13 @@ function App() {
   }, [currencyRates]);
 
   const handleAmountChange = (amount, id) => {
+    console.log(amount, id);
     if (id === "a") {
-      setAmountB(((amount * currencyRates[currencyB]) / currencyRates[currencyA]).toFixed(4));
+      setAmountB(((amount * currencyRates[currencyB.value]) / currencyRates[currencyA.value]).toFixed(4));
       setAmountA(amount);
     }
     if (id === "b") {
-      setAmountA(((amount * currencyRates[currencyA]) / currencyRates[currencyB]).toFixed(4));
+      setAmountA(((amount * currencyRates[currencyA.value]) / currencyRates[currencyB.value]).toFixed(4));
       setAmountB(amount);
     }
   };
@@ -56,20 +58,20 @@ function App() {
   const handleCurrencyChange = (currency, id) => {
     console.log(currency, id);
     if (id === "a") {
-      setAmountB(((amountA * currencyRates[currencyB]) / currencyRates[currency]).toFixed(4));
+      setAmountB(((amountA * currencyRates[currencyB.value]) / currencyRates[currency.value]).toFixed(4));
       setCurrencyA(currency);
     }
     if (id === "b") {
-      setAmountB(((amountA * currencyRates[currency]) / currencyRates[currencyA]).toFixed(4));
+      setAmountB(((amountA * currencyRates[currency.value]) / currencyRates[currencyA.value]).toFixed(4));
       setCurrencyB(currency);
     }
   };
 
-  const handleRecerseCurrencies = () => {
+  const handleReverseCurrencies = () => {
     setCurrencyA(currencyB);
     setCurrencyB(currencyA);
     setAmountB(() => {
-      return ((amountA * currencyRates[currencyB]) / currencyRates[currencyA]).toFixed(4);
+      return ((amountA * currencyRates[currencyB.value]) / currencyRates[currencyA.value]).toFixed(4);
     });
   };
 
@@ -92,7 +94,7 @@ function App() {
         onAmountChange={handleAmountChange}
         inputId="b"
       />
-      <button onClick={handleRecerseCurrencies}>Reverse Currencies</button>
+      <button onClick={handleReverseCurrencies}>Reverse Currencies</button>
       {currenciesDate.current && <p>Last updated: {currenciesDate.current}</p>}
     </div>
   );

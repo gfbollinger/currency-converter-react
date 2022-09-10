@@ -22,7 +22,7 @@ const CurrencyInput = ({ inputId, currencies, currency, onCurrencyChange, amount
     <div>
       <input type="number" value={amount} onChange={(e) => onAmountChange(e.target.value, inputId)} />
       <Select
-        onChange={onCurrencyChange}
+        onChange={(e) => onCurrencyChange(e, inputId)}
         value={currency}
         options={options}
         components={{ Option: OptionComponent }}
