@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import CurrencyInput from "./components/CurrencyInput";
 import DATA_SAMPLE from "./data/data_sample";
+import { currenciesInfo } from "./data/currencies";
 
 var myHeaders = new Headers();
 myHeaders.append("apikey", process.env.REACT_APP_FIXER_IO_APIKEY);
@@ -13,8 +14,8 @@ var requestOptions = {
 };
 
 function App() {
-  const [currencyA, setCurrencyA] = useState({ label: "USD", value: "USD" }); // maybe set initial as { label: "USD", value: "USD" }
-  const [currencyB, setCurrencyB] = useState({ label: "EUR", value: "EUR" });
+  const [currencyA, setCurrencyA] = useState({ label: "USD (US Dollar)", value: "USD" }); // maybe set initial as { label: "USD", value: "USD" }
+  const [currencyB, setCurrencyB] = useState({ label: "EUR (Euro)", value: "EUR" });
   const [amountA, setAmountA] = useState("");
   const [amountB, setAmountB] = useState("");
   const [currencies, setCurrencies] = useState([]);
@@ -27,21 +28,32 @@ function App() {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        setCurrencies(Object.keys(result.rates));
+        const fetchedCurrencies = Object.keys(result.rates);
+        const newCurrencies = [];
+        fetchedCurrencies.map((currencyItem) => {
+          let currencyName = currenciesInfo.find((itemInfo) => {
+            return itemInfo.AlphabeticCode === currencyItem;
+          });
+          return newCurrencies.push({
+            label: currencyName && currencyName.Currency ? `${currencyItem} (${currencyName.Currency})` : "",
+            value: currencyItem,
+          });
+        });
+        setCurrencies(newCurrencies);
         setCurrencyRates(result.rates);
         currenciesDate.current = result.date;
       })
       .catch((error) => console.log("error", error));
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (!currencyRates) {
       function init() {
         handleAmountChange(1, "a");
       }
       init();
     }
-  }, [currencyRates]);
+  }, [currencyRates]); */
 
   const handleAmountChange = (amount, id) => {
     console.log(amount, id);

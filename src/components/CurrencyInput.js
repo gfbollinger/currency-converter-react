@@ -13,10 +13,10 @@ const OptionComponent = (props) => {
 };
 
 const CurrencyInput = ({ inputId, currencies, currency, onCurrencyChange, amount, onAmountChange }) => {
-  let options = [];
+  /* let options = [];
   currencies.map((item) => {
     return options.push({ value: item, label: item });
-  });
+  }); */
 
   return (
     <div>
@@ -24,7 +24,7 @@ const CurrencyInput = ({ inputId, currencies, currency, onCurrencyChange, amount
       <Select
         onChange={(e) => onCurrencyChange(e, inputId)}
         value={currency}
-        options={options}
+        options={currencies}
         components={{ Option: OptionComponent }}
         styles={{ control: (styles) => ({ ...styles, borderRadius: "20px" }) }}
       />
