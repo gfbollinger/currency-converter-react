@@ -22,6 +22,7 @@ function App() {
   const [currencies, setCurrencies] = useState([]);
   const [currencyRates, setCurrencyRates] = useState([]);
   const [dummyDataMode, setdummyDataMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   let currenciesDate = useRef("");
 
@@ -47,6 +48,7 @@ function App() {
         setCurrencies(newCurrencies);
         setCurrencyRates(result.rates);
         currenciesDate.current = result.date;
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log("error", error);
@@ -66,6 +68,7 @@ function App() {
         setCurrencies(newCurrencies);
         setCurrencyRates(DATA_SAMPLE.rates);
         currenciesDate.current = DATA_SAMPLE.date;
+        setIsLoading(false);
       });
   }, []);
 
@@ -100,6 +103,16 @@ function App() {
     setCurrencyA(currencyB);
     setCurrencyB(currencyA);
   };
+
+  if (isLoading) {
+    return (
+      <div className="wrapper">
+        <div className="container">
+          <p>Loading data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="wrapper">
