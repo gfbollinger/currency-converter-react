@@ -1,0 +1,124 @@
+html {
+  height: 100%;
+  font-size: 18px;
+}
+
+body {
+  background: #0f2027; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #2c5364,
+    #203a43,
+    #0f2027
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem;
+  background-color: #ddd;
+}
+
+.wrapper {
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.container {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+
+  @media (min-width: 768px) {
+    min-width: 450px;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    margin-bottom: 2rem;
+  }
+
+  img {
+    max-width: 60px;
+    height: auto;
+
+    @media (min-width: 768px) {
+      max-width: 75px;
+    }
+  }
+}
+
+h1 {
+  margin: 0 0 1rem 0;
+  font-size: 1.8rem;
+  line-height: 1.1em;
+  letter-spacing: -1px;
+  color: #0f2027;
+  font-weight: 400;
+  text-align: left;
+  margin: 0 1rem 0 0;
+
+  @media (min-width: 768px) {
+    font-size: 2.2rem;
+  }
+}
+
+.equalsSign {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+
+.currencyInput {
+  /* display: grid;
+  grid-template-columns: 3fr 2fr; */
+  max-width: 100%;
+}
+
+input {
+  border-radius: 20px;
+  border: #cbcbcb 1px solid;
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.25rem;
+}
+
+.button-default {
+  background-color: #cbcbcb;
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+#react-select-2-listbox,
+#react-select-3-listbox {
+  font-size: 0.8rem;
+}
+
+.convertedResult {
+  padding: 1rem 0;
+}
+
+.bigNumber {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.smallText {
+  font-size: 0.75rem;
+}

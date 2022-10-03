@@ -13,14 +13,9 @@ const OptionComponent = (props) => {
 };
 
 const CurrencyInput = ({ inputId, currencies, currency, onCurrencyChange, amount, onAmountChange }) => {
-  /* let options = [];
-  currencies.map((item) => {
-    return options.push({ value: item, label: item });
-  }); */
-
   return (
-    <div>
-      <input type="number" value={amount} onChange={(e) => onAmountChange(e.target.value, inputId)} />
+    <div className="currencyInput">
+      <input placeholder="Type a number" type="number" value={amount} onChange={(e) => onAmountChange(e.target.value, inputId)} />
       <Select
         onChange={(e) => onCurrencyChange(e, inputId)}
         value={currency}
@@ -28,18 +23,6 @@ const CurrencyInput = ({ inputId, currencies, currency, onCurrencyChange, amount
         components={{ Option: OptionComponent }}
         styles={{ control: (styles) => ({ ...styles, borderRadius: "20px" }) }}
       />
-      {/* <select onChange={(e) => onCurrencyChange(e.target.value, inputId)} value={currency}>
-        {currencies &&
-          currencies.map((item) => {
-            return (
-              <>
-                <option className="currency-flag currency-flag-usd" value={item} key={item}>
-                  {item}
-                </option>
-              </>
-            );
-          })}
-      </select> */}
     </div>
   );
 };
