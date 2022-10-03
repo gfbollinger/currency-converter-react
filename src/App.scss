@@ -47,7 +47,7 @@ header {
   }
 
   img {
-    max-width: 60px;
+    max-width: 55px;
     height: auto;
 
     @media (min-width: 768px) {
@@ -58,7 +58,7 @@ header {
 
 h1 {
   margin: 0 0 1rem 0;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   line-height: 1.1em;
   letter-spacing: -1px;
   color: #0f2027;
@@ -80,8 +80,6 @@ h1 {
 }
 
 .currencyInput {
-  /* display: grid;
-  grid-template-columns: 3fr 2fr; */
   max-width: 100%;
 }
 
@@ -103,6 +101,7 @@ input {
   padding: 0.25rem 0.5rem;
   font-size: 0.8rem;
   margin: 0.6rem 0;
+  cursor: pointer;
 }
 
 #react-select-2-listbox,
@@ -115,10 +114,32 @@ input {
 }
 
 .bigNumber {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
+
+  @media (min-width: 768px) {
+    font-size: 1.8rem;
+  }
 }
 
 .smallText {
   font-size: 0.75rem;
+}
+
+.warning {
+  color: red;
+}
+
+.well {
+  background-color: rgb(239, 239, 239);
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+p {
+  font-size: 0.9rem;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
 }

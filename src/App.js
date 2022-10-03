@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.scss";
 import CurrencyInput from "./components/CurrencyInput";
-/* import DATA_SAMPLE from "./data/data_sample"; */
+import DATA_SAMPLE from "./data/data_sample";
 import { currenciesInfo } from "./data/currencies";
 import iconConvert from "./images/icon-convert.png";
 
@@ -21,6 +21,7 @@ function App() {
   const [amountB, setAmountB] = useState("");
   const [currencies, setCurrencies] = useState([]);
   const [currencyRates, setCurrencyRates] = useState([]);
+  const [dummyDataMode, setdummyDataMode] = useState(false);
 
   let currenciesDate = useRef("");
 
@@ -31,7 +32,7 @@ function App() {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        /* console.log(result); */
         const fetchedCurrencies = Object.keys(result.rates);
         const newCurrencies = [];
         fetchedCurrencies.map((currencyItem) => {
@@ -47,7 +48,25 @@ function App() {
         setCurrencyRates(result.rates);
         currenciesDate.current = result.date;
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        /* Setting Dummy data mode to show at least old info, but making the app usable if the api key reaches a limit */
+        setdummyDataMode(true);
+        const fetchedCurrencies = Object.keys(DATA_SAMPLE.rates);
+        const newCurrencies = [];
+        fetchedCurrencies.map((currencyItem) => {
+          let currencyName = currenciesInfo.find((itemInfo) => {
+            return itemInfo.AlphabeticCode === currencyItem;
+          });
+          return newCurrencies.push({
+            label: currencyName && currencyName.Currency ? `${currencyItem} (${currencyName.Currency})` : "",
+            value: currencyItem,
+          });
+        });
+        setCurrencies(newCurrencies);
+        setCurrencyRates(DATA_SAMPLE.rates);
+        currenciesDate.current = DATA_SAMPLE.date;
+      });
   }, []);
 
   const handleAmountChange = (amount, id) => {
@@ -125,7 +144,23 @@ function App() {
             </div>
           </div>
         )}
-        {currenciesDate.current && <p className="smallText">Last updated: {currenciesDate.current}</p>}
+        {dummyDataMode && (
+          <p className="well">
+            <strong className="warning">Warning:</strong>
+            <br />
+            Showing old info: The convert rates are <strong>not updated</strong>. Api key limit reached.
+          </p>
+        )}
+        {currenciesDate.current && (
+          <p className="smallText">
+            <strong>Last updated:</strong> {currenciesDate.current}
+          </p>
+        )}
+
+        <p className="smallText">
+          <strong>Disclaimer:</strong> This is just a learning app, the creator is not responsible for what the user can
+          do with the information extracted from this app.
+        </p>
       </div>
     </div>
   );
